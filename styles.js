@@ -10,7 +10,8 @@ export const Container = styled.View`
 export const Home = styled.SafeAreaView`
   flex: 1;
   align-items: center;
-  background-color: red;
+  justify-content: center;
+  background-color: #f9f6ee;
 `;
 
 export const CustomText = styled.Text`
@@ -20,6 +21,5 @@ export const CustomText = styled.Text`
 
 export const HomeText = styled.Text`
   color: black;
-  padding-top:200px;
   font-size: 30px;
 `;
