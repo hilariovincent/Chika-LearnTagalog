@@ -1,49 +1,87 @@
 import React from 'react';
 import Swiper from 'react-native-swiper';
-import {SafeAreaView, View,Image, Text,StyleSheet} from 'react-native';
+import {TouchableOpacity, View,Image, Text,StyleSheet} from 'react-native';
+import { NavigationContainer, StackRouter } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { Container,Home,HomeText ,CustomText} from './styles';
 
-export default function App() {
-  return (
-    <Swiper 
-    loop={false}
-    index={1} 
-    showsPagination={false}
-    showsButtons={true}
-    >
-      <Container color='goldenrod'>
-        <CustomText>Left Menu</CustomText>
-      </Container>
+// required variable for react navigation 
+const Stack = createNativeStackNavigator();
 
-      {/* Home Screen */}
-      <View style={[styles.home , {flexDirection: "column"}]}>
+
+{/* Home Screen */}
+function HomeScreen({navigation}) {
+  return (
+    <View style={[styles.home , {flexDirection: "column"}]}>
+        {/* Header */}
         <View style={{flex:2, backgroundColor: 'goldenrod', alignItems: 'center'}}>
 
         </View>
+
+        {/* Middle portion */}
         <View style={{flex:5, justifyContent: 'center', alignItems: 'center'}}>
           <Image source={require('./assets/favicon.png')} />
           <Text style={{fontSize: 30}}>Home Screen</Text>
-        </View>  
+        </View>
+
+        {/* Navigation Bar */}
         <View style={{flex:1, backgroundColor:'goldenrod', flexDirection:"row"}}>
+          {/* Button to Left Screen */}
           <View style={styles.navBarView}>
-            <Image source={require('./assets/games.png')} style={[styles.navBarImg]} />
+            <TouchableOpacity onPress={() => {navigation.navigate('Left')}}>
+              <Image source={require('./assets/games.png')} style={[styles.navBarImg]} />
+            </TouchableOpacity> 
           </View>
+
           <View style={styles.navBarView}>
             <Image source={require('./assets/favicon.png')} style={[styles.navBarImg]}/>
           </View>
+
+          {/* Button to Right Screen */}
           <View style={styles.navBarView}>
-            <Image source={require('./assets/flash.png')} style={[styles.navBarImg]}/>
+            <TouchableOpacity onPress={() => {navigation.navigate('Right')}}>
+              <Image source={require('./assets/flash.png')} style={[styles.navBarImg]}/>
+            </TouchableOpacity>
           </View>
           
         </View>
       </View>
+  );
+}
 
-      
-      <Container color='goldenrod'>
+function LeftScreen(navigation) {
+  return (
+    <Container color='goldenrod'>
+        <CustomText>Left Menu</CustomText>
+    </Container>
+  );
+}
+
+function RightScreen(navigation) {
+  return (
+    <Container color='goldenrod'>
         <CustomText>Right Menu</CustomText>
-      </Container>
-    </Swiper>
+    </Container>
+  );
+}
+
+
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator 
+        screenOptions={{headerShown: false}}
+        initialRouteName="Home"
+      >
+        <Stack.Screen name = "Left" 
+          component = {LeftScreen}
+        />
+        <Stack.Screen name = "Home" component={HomeScreen}/>
+        <Stack.Screen name = "Right" component={RightScreen}/>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
