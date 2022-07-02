@@ -1,21 +1,21 @@
 import React from 'react';
-import Swiper from 'react-native-swiper';
-import {TouchableOpacity, View,Image, Text,StyleSheet} from 'react-native';
-import { NavigationContainer, StackRouter } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {View,Image, Text,StyleSheet} from 'react-native';
+import { NavigationContainer} from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+//where the icons are from linked here: https://docs.expo.dev/guides/icons/
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Container,CustomText} from './styles';
 
-import { Container,Home,HomeText ,CustomText} from './styles';
-
-// required variable for react navigation 
-const Stack = createNativeStackNavigator();
+// required variable for react navigation bottom tab 
+const Tab = createBottomTabNavigator();
 
 
 {/* Home Screen */}
-function HomeScreen({navigation}) {
+function HomeScreen() {
   return (
     <View style={[styles.home , {flexDirection: "column"}]}>
         {/* Header */}
-        <View style={{flex:2, backgroundColor: 'goldenrod', alignItems: 'center'}}>
+        <View style={{flex:1, backgroundColor: '#FFE662', alignItems: 'center'}}>
 
         </View>
 
@@ -25,42 +25,21 @@ function HomeScreen({navigation}) {
           <Text style={{fontSize: 30}}>Home Screen</Text>
         </View>
 
-        {/* Navigation Bar */}
-        <View style={{flex:1, backgroundColor:'goldenrod', flexDirection:"row"}}>
-          {/* Button to Left Screen */}
-          <View style={styles.navBarView}>
-            <TouchableOpacity onPress={() => {navigation.navigate('Left')}}>
-              <Image source={require('./assets/games.png')} style={[styles.navBarImg]} />
-            </TouchableOpacity> 
-          </View>
-
-          <View style={styles.navBarView}>
-            <Image source={require('./assets/favicon.png')} style={[styles.navBarImg]}/>
-          </View>
-
-          {/* Button to Right Screen */}
-          <View style={styles.navBarView}>
-            <TouchableOpacity onPress={() => {navigation.navigate('Right')}}>
-              <Image source={require('./assets/flash.png')} style={[styles.navBarImg]}/>
-            </TouchableOpacity>
-          </View>
-          
-        </View>
       </View>
   );
 }
 
-function LeftScreen(navigation) {
+function LeftScreen() {
   return (
-    <Container color='goldenrod'>
+    <Container color='#FFE662'>
         <CustomText>Left Menu</CustomText>
     </Container>
   );
 }
 
-function RightScreen(navigation) {
+function RightScreen() {
   return (
-    <Container color='goldenrod'>
+    <Container color='#FFE662'>
         <CustomText>Right Menu</CustomText>
     </Container>
   );
@@ -71,16 +50,49 @@ function RightScreen(navigation) {
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator 
-        screenOptions={{headerShown: false}}
+      <Tab.Navigator 
+        // code similar to documentation https://reactnavigation.org/docs/tab-based-navigation/
+        screenOptions={({route}) => ({
+          /**
+             * this function assigns an icon to the nav bar using option tabBarIcon
+             * returns an icon based on the if statements 
+             * icons are from MaterialCommunityIcons (part of vector icons included in expo)
+             */
+          tabBarIcon: ({focused, color, size}) => {
+            let iconName;
+
+            /**
+             * checks route name and assigns an icon whether it is currently clicked or not
+             */
+            if (route.name === 'Left') {
+              iconName = focused
+                ? 'gamepad-circle'
+                : 'gamepad-circle-outline';
+            } else if (route.name === 'Right'){
+              iconName = focused
+                ? 'card'
+                : 'card-outline';
+            } else if (route.name === 'Home') {
+              iconName = focused 
+                ? 'home'
+                : 'home-outline'
+            }
+
+            return <MaterialCommunityIcons name={iconName} size={size} color={color}/>
+          },
+          //assigns colors to icons
+          tabBarActiveTintColor: '#F6412D',
+          tabBarInactiveTintColor: '#FF5607',
+          //gets rid of default header by react navigation 
+          headerShown: false
+        })}
         initialRouteName="Home"
       >
-        <Stack.Screen name = "Left" 
-          component = {LeftScreen}
-        />
-        <Stack.Screen name = "Home" component={HomeScreen}/>
-        <Stack.Screen name = "Right" component={RightScreen}/>
-      </Stack.Navigator>
+        //screens
+        <Tab.Screen name = "Left" component = {LeftScreen}  />
+        <Tab.Screen name = "Home" component={HomeScreen} />
+        <Tab.Screen name = "Right" component={RightScreen}/>
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }
@@ -91,16 +103,5 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 0,
   },
-
-  navBarImg: {
-    height: 50,
-    width: 50,
-  },
-
-  navBarView: {
-    flex:1 , 
-    justifyContent: 'center', 
-    alignItems: 'center',
-  }
 
 });
