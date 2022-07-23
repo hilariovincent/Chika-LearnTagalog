@@ -1,10 +1,9 @@
 import React from 'react';
-import {View,Image, Text,StyleSheet} from 'react-native';
+import {View,Image, Text,StyleSheet, SafeAreaView, FlatList, TouchableOpacity} from 'react-native';
 import { NavigationContainer} from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 //where the icons are from linked here: https://docs.expo.dev/guides/icons/
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Container,CustomText} from './styles';
 
 // required variable for react navigation bottom tab 
 const Tab = createBottomTabNavigator();
@@ -31,17 +30,36 @@ function HomeScreen() {
 
 function LeftScreen() {
   return (
-    <Container color='#FFE662'>
-        <CustomText>Left Menu</CustomText>
-    </Container>
+      <View style={styles.screenContainer}>
+        <Text>
+          games coming soon...
+        </Text>
+      </View>
   );
 }
 
+// right screen data 
+
 function RightScreen() {
   return (
-    <Container color='#FFE662'>
-        <CustomText>Right Menu</CustomText>
-    </Container>
+    <SafeAreaView style={styles.screenContainer}>
+      <FlatList
+        data={[
+          {title: 'Greetings, Goodbyes, and Repetition' },
+          {title: 'Questions, Shopping, and Courtesy'}
+        ]}
+
+        renderItem={({item}) => 
+          <TouchableOpacity style={styles.flashcard}>
+            <Text>{item.title}</Text>
+          </TouchableOpacity>  
+        }
+      />
+    </SafeAreaView>
+      
+      
+    
+    
   );
 }
 
@@ -88,10 +106,10 @@ export default function App() {
         })}
         initialRouteName="Home"
       >
-        //screens
         <Tab.Screen name = "Left" component = {LeftScreen}  />
         <Tab.Screen name = "Home" component={HomeScreen} />
         <Tab.Screen name = "Right" component={RightScreen}/>
+        
       </Tab.Navigator>
     </NavigationContainer>
   );
@@ -103,5 +121,22 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 0,
   },
+
+  screenContainer: {
+    flex: 1, 
+    backgroundColor: '#f9f6ee',
+    justifyContent: 'center'
+  },
+
+  flashcard: {
+    flex: 1, 
+    backgroundColor: '#FFE662',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 100, 
+    borderColor: '#f9f6ee',
+    borderWidth: .5,
+    borderRadius: 25
+  }
 
 });
