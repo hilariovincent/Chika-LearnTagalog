@@ -1,25 +1,27 @@
-import styled from 'styled-components/native';
+import React from "react";
+import { StyleSheet } from "react-native";
 
-export const Container = styled.View`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  background-color: ${({ color }) => color};
-`;
+export const styles = StyleSheet.create({
+  home: {
+    backgroundColor: '#f9f6ee',
+    flex: 1,
+    padding: 0,
+  },
+  screenContainer: {
+    flex: 1, 
+    backgroundColor: '#f9f6ee',
+    justifyContent: 'center',
+    
+  },
 
-export const Home = styled.SafeAreaView`
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-  background-color: #f9f6ee;
-`;
-
-export const CustomText = styled.Text`
-  color: black;
-  font-size: 50px;
-`;
-
-export const HomeText = styled.Text`
-  color: black;
-  font-size: 30px;
-`;
+  flashcard: {
+    flex: 1, 
+    backgroundColor: '#FFE662',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 100, 
+    borderColor: '#f9f6ee',
+    borderWidth: .5,
+    borderRadius: 25
+  }
+});
