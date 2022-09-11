@@ -10,18 +10,75 @@ export const styles = StyleSheet.create({
   screenContainer: {
     flex: 1, 
     backgroundColor: '#f9f6ee',
-    justifyContent: 'center',
-    
   },
 
-  flashcard: {
+  flashcardButton: {
     flex: 1, 
     backgroundColor: '#FFE662',
-    alignItems: 'center',
     justifyContent: 'center',
     height: 100, 
     borderColor: '#f9f6ee',
     borderWidth: .5,
-    borderRadius: 25
+    paddingLeft: 15, 
+    marginTop: 10,
+  },
+
+  heading: {
+    fontSize: 32,
+    marginTop: 60, 
+    marginLeft: 15, 
+    fontWeight: 'bold'
+  },
+
+  searchBar: {
+    height: 39,
+    width: '90%',
+    backgroundColor: '#ebebeb',
+    borderRadius: 20, 
+    alignSelf: "center",
+    paddingLeft: 15,
+    marginTop: 10 
+  },
+
+  flashcardTitle: {
+    fontWeight: 'bold',
+    fontSize: 16,
+  }, 
+
+  flashcardFront : {
+    alignSelf: "center",
+    height: 300,
+    width: 400, 
+    backgroundColor: '#FFE662', 
+    top: 100
+  }, 
+
+  flashcardBack : {
+    height: 300,
+    width: 400, 
+    backgroundColor: '#FFE662',
+    position: "absolute",
+    top: 100,
+    alignSelf: "center"
+  },
+
+  hidden : {
+    backfaceVisibility: 'hidden',
+  },
+
+  vocabWord : {
+    fontSize: 27, 
+    alignSelf: "center", 
+    top: 140,
+  }, 
+
+  iconView :{
+    flex: 1,
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    
   }
+
+
 });

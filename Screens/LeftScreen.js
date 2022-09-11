@@ -9,7 +9,7 @@ import { styles} from '../styles';
 export function LeftScreen() {
 return (
     <View style={styles.screenContainer}>
-        <Text>
+        <Text style={styles.heading}>
           games coming soon...
         </Text>
     </View>
