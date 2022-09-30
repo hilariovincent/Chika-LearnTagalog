@@ -22,7 +22,8 @@
     "react-native-screens": "~3.10.1",
     "react-native-swiper": "^1.6.0-rc.3",
     "react-native-web": "0.17.1",
-    "styled-components": "^5.3.3"
+    "styled-components": "^5.3.3",
+    "expo-av": "~10.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

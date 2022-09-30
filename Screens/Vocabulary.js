@@ -9,7 +9,8 @@ export const obj = {
             "Set" : [
                 {
                     "Eng" : "Good Morning",
-                    "Tag" : "Magandang Umaga"
+                    "Tag" : "Magandang Umaga",
+                    "Audio" : require('../assets/audio1.m4a')
                 },
                 {
                     "Eng" : "Good Afternoon",

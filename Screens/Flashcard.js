@@ -3,6 +3,7 @@ import { View, Text, Button, TouchableOpacity, Animated } from "react-native";
 import { styles } from "../styles";
 import { obj } from "./Vocabulary";
 import { AntDesign } from '@expo/vector-icons';
+import { Audio } from "expo-av";
 
 export function Flashcard({ route, navigation}) {
     const {itemId, otherParam} = route.params; 
@@ -11,7 +12,22 @@ export function Flashcard({ route, navigation}) {
     const animate = useRef(new Animated.Value(0));
     const [flip, setFlip] = useState(false);
     const [word, setWord] = useState(SET[0]);
+    const [sound, setSound] = useState();
     
+    
+    async function playSound(){
+        const {sound} = await Audio.Sound.createAsync(require('../assets/audio1.m4a'));
+        setSound(sound);
+
+        await sound.playAsync();
+    }
+
+    useEffect(() => {
+        return sound 
+        ? () => {
+            sound.unloadAsync();
+        } : undefined;
+    }, [sound]); 
 
     let i = 0;
 
@@ -86,6 +102,9 @@ export function Flashcard({ route, navigation}) {
             <View style = {styles.iconView}>
                 <TouchableOpacity onPress={prevCard}>
                     <AntDesign name="leftcircle" size={40} color="#FF5607" />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={playSound}>
+                    <AntDesign name="sound" size={40} color="#FF5607"/>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={nextCard}>
                     <AntDesign name="rightcircle" size={40} color="#FF5607" />  
