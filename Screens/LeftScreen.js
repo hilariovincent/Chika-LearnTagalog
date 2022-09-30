@@ -5,14 +5,17 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 //where the icons are from linked here: https://docs.expo.dev/guides/icons/
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { styles} from '../styles';
+import imagesOn from '../assets/pika.png';
 
-export function LeftScreen() {
-return (
-    <View style={styles.screenContainer}>
-        <Text style={styles.heading}>
-          games coming soon...
-        </Text>
-    </View>
-);
+export default class LeftScreen extends React.Component{
+  render(){
+    return (
+      <View style={styles.screenContainer}>
+          <Text>
+            games coming soon...
+          </Text>
+      </View>
+    );
+  } 
 }
   
